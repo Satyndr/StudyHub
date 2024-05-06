@@ -261,7 +261,10 @@ exports.changePassword = async(req, res)=>{
         }
 
         //update pwd in DB
-        const update = await User.findByIdAndUpdate()
+        const update = await User.findOneAndUpdate(
+            {password: newPassword},
+        );
+        console.log(update);
 
         //send mail- password updated
         const mailResponse = mailSender(email, "Password Changed from StudyHub", "Password Changed Successfully");
