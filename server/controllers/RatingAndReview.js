@@ -7,7 +7,7 @@ exports.createRating = async(req, res)=>{
     try{
 
         //get user id
-        const {userId} = req.user.id;
+        const userId = req.user.id;
         //data fetch
         const {courseId, rating, review} = req.body;
         //check if user is enrolled or not
@@ -45,7 +45,7 @@ exports.createRating = async(req, res)=>{
         await Course.findByIdAndUpdate({_id:courseId},
             {
                 $push:{
-                    ratingAndReviews: ratingReview
+                    ratingAndReviews: ratingReview._id,
                 }
             },
             {new:true}
@@ -69,7 +69,7 @@ exports.createRating = async(req, res)=>{
 exports.averageRating = async(req, res)=>{
     try{
         //fetch id
-        const courseId = req.body;
+        const courseId = req.body.courseId;
         //calculate average
         const result = await RatingAndReview.aggregate([
             {
@@ -96,6 +96,7 @@ exports.averageRating = async(req, res)=>{
         return res.status(200).json({
             success:true,
             message:"Average rating is 0",
+            averageRating: 0,
         })
 
     }catch(error){
@@ -124,14 +125,14 @@ exports.showAllRating = async(req, res)=>{
         return res.status(200).json({
             success:true,
             message:"Rating fetched successfully",
-            allReviews,
+            data: allReviews,
         })
     }
     catch(error){
         console.log(error);
         return res.status(400).json({
             success:false,
-            message:"Error in Showing all rating.",
+            message:error.message,
         })
     }
 }
