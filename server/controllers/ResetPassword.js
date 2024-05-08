@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 exports.resetPasswordToken = async(req, res) =>{
     try{
         //get email from req body
-        const email = req.body;
+        const email = req.body.email;
 
         //check user for this email, email validation
         const user = await User.findOne({email: email});

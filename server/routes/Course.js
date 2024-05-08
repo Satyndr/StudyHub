@@ -5,7 +5,7 @@ const router = express.Router()
 
 const {
   createCourse,
-  getAllCourses,
+  showAllCourses,
   getCourseDetails,
 } = require("../controllers/Course")
 
@@ -25,16 +25,16 @@ const {
   createSubSection,
   updateSubSection,
   deleteSubSection,
-} = require("../controllers/Subsection")
+} = require("../controllers/SubSection")
 
 const {
   createRating,
-  getAverageRating,
-  getAllRating,
+  averageRating,
+  showAllRating,
 } = require("../controllers/RatingAndReview")
 
 // Importing Middlewares
-const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
+const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
 
 // ********************************************************************************************************
 //                                      Course routes
@@ -55,7 +55,7 @@ router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 // Add a Sub Section to a Section
 router.post("/addSubSection", auth, isInstructor, createSubSection)
 // Get all Registered Courses
-router.get("/getAllCourses", getAllCourses)
+router.get("/getAllCourses", showAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
 
@@ -72,7 +72,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 //                                      Rating and Review
 // ********************************************************************************************************
 router.post("/createRating", auth, isStudent, createRating)
-router.get("/getAverageRating", getAverageRating)
-router.get("/getReviews", getAllRating)
+router.get("/getAverageRating", averageRating)
+router.get("/getReviews", showAllRating)
 
 module.exports = router

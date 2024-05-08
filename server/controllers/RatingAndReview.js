@@ -1,7 +1,6 @@
-const ratingAndReview = require("ratingAndReview");
+const RatingAndReview = require("../models/RatingAndReview");
 const Course = require("../models/Course");
 const User = require("../models/User");
-const RatingAndReview = require("../models/RatingAndReview");
 
 //createRating
 exports.createRating = async(req, res)=>{

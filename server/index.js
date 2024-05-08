@@ -9,7 +9,7 @@ const courseRoute = require("./routes/Course");
 const database = require("./config/database");
 const {cloudinaryConnect} = require("./config/cloudinary");
 
-const fileUpload = require("expres-fileupload");
+const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");

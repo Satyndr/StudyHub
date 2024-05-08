@@ -1,9 +1,11 @@
 const OTP = require("../models/OTP");
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
+const { otpTemplate } = require("../mail/templates/emailVerificationTemplate");
 require("dotenv").config();
 
 //sendOTP
@@ -41,6 +43,10 @@ exports.sendOTP = async (req, res)=>{
             });
             checkUniqueOtp = await OTP.findOne({otp: otp});
         }
+
+        //send mail- 
+        // const mailResponse = mailSender(email, "Email Verification from StudyHub", otp);
+        // console.log("Mail sent successfully", mailResponse);
 
         //sending otp in the database-----------------------------------
         const otpPayloader = {email, otp};
@@ -107,15 +113,17 @@ exports.signUp = async(req, res)=>{
             })
         }
 
+        
         //find most recent otp and validate it
         const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
-        if(recentOtp.length == 0){
+        console.log(recentOtp);
+        if(recentOtp.length === 0){
             return res.status(400).json({
                 success:false,
                 message:"OTP not Found",
             })
         }
-        else if(recentOtp !== otp){
+        else if(recentOtp[0].otp !== otp){
             return res.status(400).json({
                 success:false,
                 message:"Invalid OTP",
@@ -204,7 +212,7 @@ exports.login = async(req, res)=>{
             //create cookie and send response
             const options = {
                 expires: new Date(Date.now() + 3*24*60*60*1000),
-                httpOnly,//cookie is not changable in client side
+                httpOnly:true ,//cookie is not changable in client side
             }
             res.cookie("token",token,options).status(200).json({
                 success:true,

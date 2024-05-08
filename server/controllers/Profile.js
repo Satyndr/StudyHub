@@ -1,5 +1,6 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const {uploadImageToCloudinary} = require("../utils/ImageUploader");
 
 //profile update 
 exports.updateProfile = async(req, res)=>{
@@ -15,23 +16,24 @@ exports.updateProfile = async(req, res)=>{
                 message:"Gender and Contact Number required",
             })
         }
-        //find profile
-        const userDetails = await User.findOne(id);
-        const profileId = userDetails.additionalDetails;
-        const profileDetails = await Profile.findOne(profileId);
-        //update profile
-        profileDetails.dateOfBirth = dateOfBirth;
-        profileDetails.about = about;
-        profileDetails.gender = gender;
-        profileDetails.contactNumber = contactNumber;
+        // Find the profile by id
+        const userDetails = await User.findById(id);
+        const profile = await Profile.findById(userDetails.additionalDetails);
 
-        await profileDetails.save();
+        // Update the profile fields
+        profile.dateOfBirth = dateOfBirth;
+        profile.about = about;
+        profile.contactNumber = contactNumber;
+        profile.gender = gender;
+
+        // Save the updated profile
+        await profile.save();
 
         //return response
         return res.status(200).json({
             success:true,
             message:"Profile updated successfully",
-            profileDetails,
+            profile,
         })
 
     }catch(err){
@@ -44,7 +46,7 @@ exports.updateProfile = async(req, res)=>{
 }
 
 //delete account
-exports.deleteProfile = async(req, res)=>{
+exports.deleteAccount = async(req, res)=>{
     try{
         //fetch id 
         const id = req.user.id;
@@ -59,7 +61,7 @@ exports.deleteProfile = async(req, res)=>{
         //first remove additional details////profile
         await Profile.findByIdAndDelete({_id:userDetails.additionalDetails});
         //find by id and delete user schema////user
-        await user.findByIdAndDelete({_id:id});
+        await User.findByIdAndDelete({_id:id});
         //return response
         return res.status(200).json({
             success:true,
@@ -85,6 +87,7 @@ exports.getAllUserDetails = async(req, res)=>{
         return res.status(200).json({
             success:true,
             message:"User data fetched successfully",
+            userDetails,
         })
     }
     catch(error){
