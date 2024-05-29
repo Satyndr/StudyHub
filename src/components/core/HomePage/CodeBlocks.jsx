@@ -17,9 +17,9 @@ const CodeBlocks = ({
   return (
     <div className={`flex ${position} my-20 justify-between gap-10`}>
       {/* Section 1 */}
-      <div className="w-[50%] flex flex-col gap-8">
+      <div className="md:w-[50%] lg:w-[50%] flex flex-col gap-8">
         {heading}
-        <div className="text-richblack-300 font-bold">{subheading}</div>
+        <div className="text-richblack-300 font-bold ">{subheading}</div>
 
         <div className="flex gap-7 mt-7">
           <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
@@ -36,10 +36,9 @@ const CodeBlocks = ({
       </div>
 
       {/* Section 2 */}
-      <div className="h-fit flex flex-row text-10[px] w-[50%] py-4">
-        {/* HW -> BG gradient */}
+      <div className="h-fit flex flex-row text-10[px] md:w-[50%] lg:w-[50%] py-4 rounded-md bg-richblack-100/10 blur-10">
 
-        <div className="text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold">
+        <div className="text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold ">
           <p>1</p>
           <p>2</p>
           <p>3</p>

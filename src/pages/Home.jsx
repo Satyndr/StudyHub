@@ -20,7 +20,7 @@ const Home = () => {
         <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 text-white">
             <Link to={"/signup"}>
                 <div className="group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200 transition-all duration-200 hover:scale-95 w-fit drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] hover:shadow-none">
-                    <div className="flex felx-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-200 group-hover:bg-richblack-900">
+                    <div className="flex flex-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-200 group-hover:bg-richblack-900">
                         <p>Become an Instructor</p>
                         <FaArrowRight />
                     </div>
@@ -52,7 +52,7 @@ const Home = () => {
             </div>
 
             {/* Code Section-1 */}
-            <div>
+            <div className="w-[100%]">
                 <CodeBlocks 
                     position={"lg:flex-row md:flex-row flex-col justify-center align-center"}
                     heading={
@@ -88,7 +88,7 @@ const Home = () => {
             </div>
 
             {/* Code Section-2*/}
-            <div>
+            <div className="w-[100%]">
                 <CodeBlocks 
                     position={"flex lg:flex-row-reverse md:flex-row-reverse flex-col my-20 justify-between flex-col lg:gap-10 gap-10"}
                     heading={

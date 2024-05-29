@@ -23,7 +23,7 @@ const Navbar = () => {
   const fetchSubLinks = async() => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      console.log("Printing Sublinks result: ", result);
+      // console.log("Printing Sublinks result: ", result);
       setSubLinks(result.data.data);
 
     } catch(error) {
