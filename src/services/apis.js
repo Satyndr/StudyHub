@@ -13,7 +13,8 @@ export const endpoints = {
 export const profileEndpoints = {
     GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
     GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourses",
-}
+    GET_ALL_INSTRUCTOR_DASHBOARD_DETAILS_API: BASE_URL + "/profile/getInstructorDashboardDetails",
+};
 
 //STUDENTS ENDPOINTS
 export const studentEndpoints = {
@@ -22,7 +23,7 @@ export const studentEndpoints = {
     SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmamil",
 }
 
-//COURSE ENDPOINTS
+// COURSE ENDPOINTS
 export const courseEndpoints = {
     GET_ALL_COURSE_API: BASE_URL + "/course/getAllCourses",
     COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
@@ -33,14 +34,17 @@ export const courseEndpoints = {
     CREATE_SUBSECTION_API: BASE_URL + "/course/addSubSection",
     UPDATE_SECTION_API: BASE_URL + "/course/updateSection",
     UPDATE_SUBSECTION_API: BASE_URL + "/course/updateSubSection",
-    GET_ALL_INSTRUCTOR_COURSE_API: BASE_URL + "/course/getInstructorCourses",
+    GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourses",
     DELETE_SECTION_API: BASE_URL + "/course/deleteSection",
     DELETE_SUBSECTION_API: BASE_URL + "/course/deleteSubSection",
     DELETE_COURSE_API: BASE_URL + "/course/deleteCourse",
     GET_FULL_COURSE_DETAILS_AUTHENTICATED: BASE_URL + "/course/getFullCourseDetails",
-    LECTURE_COMPLETIOIN_API: BASE_URL + "/course/updateCourseProgress",
+    LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
     CREATE_RATING_API: BASE_URL + "/course/createRating",
-}
+    ADD_COURSE_TO_CATEGORY_API: BASE_URL + "/course/addCourseToCategory",
+    SEARCH_COURSES_API: BASE_URL + "/course/searchCourse",
+    CREATE_CATEGORY_API: BASE_URL + "/course/createCategory",
+};
 
 //RATINGS AND REVIES
 export const ratingsEndpoints = {

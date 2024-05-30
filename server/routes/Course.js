@@ -7,12 +7,15 @@ const {
   createCourse,
   showAllCourses,
   getCourseDetails,
+  editCourse,
+  getInstructorCourses,
 } = require("../controllers/Course")
 
 const {
   showAllCategories,
   createCategory,
   categoryPageDetails,
+  addCourseToCategory,
 } = require("../controllers/Category")
 
 const {
@@ -42,6 +45,8 @@ const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
 
 // Courses can Only be Created by Instructors
 router.post("/createCourse", auth, isInstructor, createCourse)
+// Edit a Course
+router.post("/editCourse", auth, isInstructor, editCourse)
 //Add a Section to a Course
 router.post("/addSection", auth, isInstructor, createSection)
 // Update a Section
@@ -58,6 +63,8 @@ router.post("/addSubSection", auth, isInstructor, createSubSection)
 router.get("/getAllCourses", showAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
+// Get all Courses of a Specific Instructor
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
@@ -67,6 +74,7 @@ router.post("/getCourseDetails", getCourseDetails)
 router.post("/createCategory", auth, isAdmin, createCategory)
 router.get("/showAllCategories", showAllCategories)
 router.post("/getCategoryPageDetails", categoryPageDetails)
+router.post("/addCourseToCategory", auth, isInstructor, addCourseToCategory);
 
 // ********************************************************************************************************
 //                                      Rating and Review

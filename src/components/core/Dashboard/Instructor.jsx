@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import { fetchInstructorCourses } from "../../../services/operations/courseDetailsAPI"
 import { getInstructorData } from "../../../services/operations/profileAPI"
-import InstructorChart from "./InstructorDashboard/InstructorChart"
+// import InstructorChart from "./InstructorDashboard/InstructorChart"
 
 export default function Instructor() {
   const { token } = useSelector((state) => state.auth)
@@ -51,9 +51,11 @@ export default function Instructor() {
         <div className="spinner"></div>
       ) : courses.length > 0 ? (
         <div>
+
           <div className="my-4 flex h-[450px] space-x-4">
+            
             {/* Render chart / graph */}
-            {totalAmount > 0 || totalStudents > 0 ? (
+            {/* {totalAmount > 0 || totalStudents > 0 ? (
               <InstructorChart courses={instructorData} />
             ) : (
               <div className="flex-1 rounded-md bg-richblack-800 p-6">
@@ -62,7 +64,7 @@ export default function Instructor() {
                   Not Enough Data To Visualize
                 </p>
               </div>
-            )}
+            )} */}
             {/* Total Statistics */}
             <div className="flex min-w-[250px] flex-col rounded-md bg-richblack-800 p-6">
               <p className="text-lg font-bold text-richblack-5">Statistics</p>
@@ -88,6 +90,7 @@ export default function Instructor() {
               </div>
             </div>
           </div>
+          
           <div className="rounded-md bg-richblack-800 p-6">
             {/* Render 3 courses */}
             <div className="flex items-center justify-between">

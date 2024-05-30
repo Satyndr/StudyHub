@@ -58,7 +58,7 @@ export default function CourseBuilderForm () {
             )
         }
         if(result) {
-            // console.log("course to set result", result)
+            console.log("course to set result", result)
             dispatch(setCourse(result))
             setEditSectionName(null)
             setValue("sectionName", "")
@@ -81,6 +81,7 @@ export default function CourseBuilderForm () {
     }
 
     const goToNext = () => {
+        // console.log("next called");
         if(course.courseContent.length === 0) {
             toast.error("Please add atleast one section")
             return 
@@ -151,9 +152,16 @@ export default function CourseBuilderForm () {
             >
                 Back
             </button>
-            <IconBtn disabled={loading} text="Next" onClick={goToNext}>
+            <button
+                onClick={goToNext}
+                className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-yellow-50 py-[8px] px-[20px] font-semibold text-richblack-900`}
+            >
+                Next
                 <MdNavigateNext />
-            </IconBtn>
+            </button>
+            {/* <IconBtn disabled={loading} text="Nextttt" onClick={()=>{console.log("nextclic")}}>
+                <MdNavigateNext />
+            </IconBtn> */}
         </div>
     </div>
   )
