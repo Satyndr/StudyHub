@@ -1,7 +1,9 @@
 const Course = require("../models/Course");
 const Category = require("../models/Category");
 const User = require("../models/User");
+const CourseProgress = require("../models/CourseProgress");
 const {uploadImageToCloudinary} = require("../utils/ImageUploader");
+const { convertSecondsToDuration}= require("../utils/secToDuration");
 
 //create course
 exports.createCourse = async(req, res)=>{
@@ -289,79 +291,82 @@ exports.editCourse = async (req, res) => {
 	}
   }
 
-  //get full course details
-  exports.getFullCourseDetails = async (req, res) => {
+//get full course details
+exports.getFullCourseDetails = async (req, res) => {
 	try {
-	  const { courseId } = req.body
-	  const userId = req.user.id
-	  const courseDetails = await Course.findOne({
-		_id: courseId,
-	  })
+		const {courseId}  = req.body
+		// console.log(courseId);
+		const userId = req.user.id
+		const courseDetails = await Course.findOne({
+			_id: courseId,
+		})
 		.populate({
-		  path: "instructor",
-		  populate: {
-			path: "additionalDetails",
-		  },
+			path: "instructor",
+			populate: {
+				path: "additionalDetails",
+			},
 		})
 		.populate("category")
 		.populate("ratingAndReviews")
 		.populate({
-		  path: "courseContent",
-		  populate: {
-			path: "subSection",
-		  },
+			path: "courseContent",
+			populate: {
+				path: "subSection",
+			},
 		})
 		.exec()
+		
 
 		
-	  let courseProgressCount = await CourseProgress.findOne({
-		courseID: courseId,
-		userID: userId,
-	  })
-  
-	  console.log("courseProgressCount : ", courseProgressCount)
-  
-	  if (!courseDetails) {
+		  let courseProgressCount = await CourseProgress.findOne({
+			courseID: courseId,
+			userID: userId,
+		  })
+
+		//   console.log("courseProgressCount : ", courseProgressCount)
+
+		if (!courseDetails) {
 		return res.status(400).json({
-		  success: false,
-		  message: `Could not find course with id: ${courseId}`,
+			success: false,
+			message: `Could not find course with id: ${courseId}`,
 		})
-	  }
-  
-	  // if (courseDetails.status === "Draft") {
-	  //   return res.status(403).json({
-	  //     success: false,
-	  //     message: `Accessing a draft course is forbidden`,
-	  //   });
-	  // }
-  
-	  let totalDurationInSeconds = 0
-	  courseDetails.courseContent.forEach((content) => {
+		}
+
+		// if (courseDetails.status === "Draft") {
+		//   return res.status(403).json({
+		//     success: false,
+		//     message: `Accessing a draft course is forbidden`,
+		//   });
+		// }
+
+		let totalDurationInSeconds = 0
+		courseDetails.courseContent.forEach((content) => {
 		content.subSection.forEach((subSection) => {
-		  const timeDurationInSeconds = parseInt(subSection.timeDuration)
-		  totalDurationInSeconds += timeDurationInSeconds;
+			const timeDurationInSeconds = parseInt(subSection.timeDuration)
+			totalDurationInSeconds += timeDurationInSeconds;
 		})
-	  })
-  
-	  const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
-  
-	  return res.status(200).json({
+		})
+		// console.log("fun mid");
+
+		const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+		return res.status(200).json({
 		success: true,
 		data: {
-		  courseDetails,
-		  totalDuration,
-		  completedVideos: courseProgressCount?.completedVideos
+			courseDetails,
+			totalDuration,
+		  	completedVideos: courseProgressCount?.completedVideos
 			? courseProgressCount?.completedVideos
 			: ["none"],
 		},
-	  })
+	})
 	} catch (error) {
-	  return res.status(500).json({
+		return res.status(500).json({
 		success: false,
 		message: error.message,
-	  })
+		})
 	}
-  }
+}
 
 //Delete Course
 exports.deleteCourse = async (req, res) => {
@@ -464,10 +469,11 @@ exports.markLectureAsComplete = async (req, res) => {
 	  })
 	}
 	try {
-	progressAlreadyExists = await CourseProgress.findOne({
-				  userID: userId,
-				  courseID: courseId,
-				})
+		progressAlreadyExists = await CourseProgress.findOne({
+					userID: userId,
+					courseID: courseId,
+					})
+		console.log("Completed videos", progressAlreadyExists)
 	  const completedVideos = progressAlreadyExists.completedVideos
 	  if (!completedVideos.includes(subSectionId)) {
 		await CourseProgress.findOneAndUpdate(

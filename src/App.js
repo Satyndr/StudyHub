@@ -26,6 +26,8 @@ import Cart from './components/core/Dashboard/Cart';
 import Instructor from './components/core/Dashboard/InstructorDashboard/Instructor';
 import AddCourse from './components/core/Dashboard/AddCourses';
 import MyCourses from "./components/core/Dashboard/MyCourses";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 // import EditCourse from './components/core/Dashboard/EditCourse';
 import CourseDetails from './pages/CourseDetails'
 
@@ -137,6 +139,23 @@ function App() {
           }
 
           <Route path="dashboard/settings" element={<Settings />} />
+        </Route>
+
+        <Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="/dashboard/enrolled-courses/view-course/:courseId/section/:sectionId/sub-section/:subsectionId"
+                element={<VideoDetails />}
+              />
+            </>
+          )}
         </Route>
 
 

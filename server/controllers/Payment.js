@@ -1,6 +1,7 @@
 const {instance} = require("../config/razorpay");
 const Course = require("../models/Course");
 const User = require("../models/User");
+const CourseProgress = require("../models/CourseProgress");
 const mailSender = require("../utils/mailSender");
 const {courseEnrollmentEmail} = require("../mail/templates/courseEnrollmentEmail");
 
@@ -213,6 +214,18 @@ exports.verifyFree = async(req, res)=>{
             },
             {new: true},   
         )
+
+        //set course progress
+        const newCourseProgress = new CourseProgress({
+            userID: userId,
+            courseID: course,
+          })
+          await newCourseProgress.save()
+    
+          //add new course progress to user
+          await User.findByIdAndUpdate(userId, {
+            $push: { courseProgress: newCourseProgress._id },
+          },{new:true});
 
         return res.status(200).json({
             success:true,

@@ -9,6 +9,8 @@ const {
   getCourseDetails,
   editCourse,
   getInstructorCourses,
+  getFullCourseDetails,
+  markLectureAsComplete,
 } = require("../controllers/Course")
 
 const {
@@ -65,6 +67,10 @@ router.get("/getAllCourses", showAllCourses)
 router.post("/getCourseDetails", getCourseDetails)
 // Get all Courses of a Specific Instructor
 router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+//Get full course details
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+//mark lecture as complete
+router.post("/updateCourseProgress", auth, isStudent, markLectureAsComplete);
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

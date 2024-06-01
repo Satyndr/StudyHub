@@ -1,5 +1,6 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const Course = require("../models/Course");
 const {uploadImageToCloudinary} = require("../utils/ImageUploader");
 
 //profile update 
@@ -128,31 +129,36 @@ exports.updateDisplayPicture = async (req, res) => {
     }
   };
   
-  exports.getEnrolledCourses = async (req, res) => {
-    try {
-      const userId = req.user.id;
-      const userDetails = await User.findOne({
-        _id: userId,
-      })
-        .populate("courses")
-        .exec();
-      if (!userDetails) {
-        return res.status(400).json({
-          success: false,
-          message: `Could not find user with id: ${userDetails}`,
-        });
+exports.getEnrolledCourses = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userDetails = await User.findOne({
+      _id: userId,
+    })
+    .populate({
+      path : "courses",
+        populate : {
+          path: "courseContent",
       }
-      return res.status(200).json({
-        success: true,
-        data: userDetails.courses,
-      });
-    } catch (error) {
-      return res.status(500).json({
+    }
+    ).exec();
+    if (!userDetails) {
+      return res.status(400).json({
         success: false,
-        message: error.message,
+        message: `Could not find user with id: ${userDetails}`,
       });
     }
-  };
+    return res.status(200).json({
+      success: true,
+      data: userDetails.courses,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 //instructor dashboard
 exports.instructorDashboard = async (req, res) => {
