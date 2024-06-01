@@ -10,10 +10,17 @@ exports.capturePayment = async(req, res)=>{
     const {course_id} = req.body;
     const userId = req.user.id;
     //valid courseid
-    if(!courseId){
+    try{
+        if(!course_id){
+            return res.status(403).json({
+                success:false,
+                message:"Enter valid detail",
+            })
+        }
+    }catch(error){
         return res.status(403).json({
             success:false,
-            message:"Enter valid detail",
+            message:error.message
         })
     }
     //valid coursedetail
@@ -43,21 +50,6 @@ exports.capturePayment = async(req, res)=>{
             message:error.message,
         })
     }
-
-
-
-    ///////////////////////////////////////////////////////
-    //this line of code written for payment free enrollment
-    if(amount == 0){
-        return res.json({
-            success:true,
-        })
-    }
-    ///////////////////////////////////////////////////////
-
-
-
-
 
     //order create
     const amount = course.price;
@@ -176,74 +168,64 @@ exports.verifySignature = async(req, res)=>{
     }
 };
 
-//verify signature
-exports.verifySignatureFree = async(req, res)=>{
+//verify Free
+exports.verifyFree = async(req, res)=>{
     
-    //server signature
-    // const webhookSecret = "12345678";
-
-    //signature from razorpay
-    // const signature = req.header["x-razorpay-signature"];
-
-    // const shasum = crypto.createHmac("sha256", webhookSecret);
-    // shasum.update(JSON.stringify(req.body));
-    // const digest = shasum.digest("hex");
-
+    console.log("Payment is Authorized");
     
-        console.log("Payment is Authorized");
-        
-        const {courseId, userId} = req.body;
-        
-        try{
-            //find the course and enroll the student in it.
-            const enrolledCourse = await Course.findOne(
-                {_id: courseId},
-                {
-                    $push:{
-                        studentsEnrolled: userId
-                    }
-                },
-                {new:true},
-            );
+    const {courses} = req.body;
+        console.log("Courses...", courses);
+        const userId = req.user.id;
+        console.log("user_details", userId);
+    
+    try{
 
-            if(!enrolledCourse){
-                return res.status(500).json({
-                    success:false,
-                    message:"Course not found",
-                })
-            }
-            console.log(enrolledCourse);
+        courses.map(async(course)=> {   
+            
+        console.log("Course id is...", course);
 
-            //find the student and add the course to list of enrolledcourses
-            const enrolledStudent = await User.findOneAndUpdate(
-                {_id: userId},
-                {
-                    $push:{
-                        courses:courseId
-                    }
-                },
-                {new: true},   
-            )
+        //find the course and enroll the student in it.
+        const enrolledCourse = await Course.findByIdAndUpdate(
+            course,
+            {
+                $push:{
+                    studentEnrolled: userId
+                }
+            },
+            {new:true},
+        );
 
-            //send confirmation mail to student
-            const emailResponse = await mailSender(
-                enrolledCourse.email,
-                "Congratulations you are enrolled in course",
-                "Congratulations bro you are now part of StudyHub . Enjoy learning with us."
-            );
-
-            console.log(emailResponse);
-
-            return res.status(200).json({
-                success:true,
-                message:"Signature verified and Course enrolled Successfully",
-            })
-        }catch(error){
-            console.log(error);
+        if(!enrolledCourse){
             return res.status(500).json({
                 success:false,
-                message:error.message,
-            });
+                message:"Course not found",
+            })
         }
+        console.log(enrolledCourse);
+
+        //find the student and add the course to list of enrolledcourses
+        const enrolledStudent = await User.updateOne(
+            {_id: userId},
+            {
+                $push:{
+                    courses:course
+                }
+            },
+            {new: true},   
+        )
+
+        return res.status(200).json({
+            success:true,
+            message:"Signature verified and Course enrolled Successfully",
+        })
+
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+    }
 
 };
