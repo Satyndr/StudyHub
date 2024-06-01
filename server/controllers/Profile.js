@@ -91,7 +91,7 @@ exports.getAllUserDetails = async(req, res)=>{
         })
     }
     catch(error){
-        console.log(err);
+        console.log(error);
         return res.status(403).json({
             success:false,
             message:"Profile was not found, please try again.",

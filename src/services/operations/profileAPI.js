@@ -17,15 +17,16 @@ export function getUserDetails(token, navigate) {
             const response = await apiConnector("GET", GET_USER_DETAILS_API, null, {
                 Authorization: `Bearer ${token}`
             })
-            console.log("GET_USER_DETAILS API RESPONSE.................", response)
+            // console.log("GET_USER_DETAILS API RESPONSE.................", response)
 
             if(!response.data.success) {
                 throw new Error(response.data.message)
             }
-            const userImage = response.data.data.userImage
-                ? response.data.data.image
-                : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.firstName} ${response.data.data.lastName}`
-            dispatch(setUser({ ...response.data.data, image: userImage }))
+            // console.log("Succcess upto here", response.data.userDetails.image);
+            const userImage = response.data.userDetails.image
+                ? response.data.userDetails.image
+                : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.userDetails.firstName} ${response.data.userDetails.lastName}`
+            dispatch(setUser({ ...response.data.userDetails, image: userImage }))
 
         } catch(error) {
             dispatch(logout(navigate))

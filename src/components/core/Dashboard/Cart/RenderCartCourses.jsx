@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { FaStar } from "react-icons/fa"
 import ReactStars from "react-rating-stars-component"
+import { Link } from "react-router-dom"
 
 import { removeFromCart } from "../../../../slices/cartSlice"
 
@@ -14,11 +15,13 @@ export default function RenderCartCourses() {
         <div className="flex flex-1 flex-col">
             {
                 cart.map((course, index) => (
+                    <Link to={`/courses/${course._id}`} key={course._id}>
                     <div 
                         key={course._id}
                         className={`flex w-full flex-wrap items-start justify-between gap-6 
                                     ${index !== cart.length - 1 && "border border-b-richblack-400 pb-6"}
                                     ${index !== 0 && "mt-6"}`}
+                        
                     >
                         <div className="flex flex-1 flex-col gap-4 xl:flex-row">
                             <img src={course?.thumbnail}
@@ -51,7 +54,7 @@ export default function RenderCartCourses() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col items-end space-y-2">
+                        <div className="text-richblack-100 flex flex-col items-end space-y-2">
                             <button
                                 onClick={() => dispatch(removeFromCart(course._id))}
                             >
@@ -63,6 +66,7 @@ export default function RenderCartCourses() {
                             </p>
                         </div>
                     </div>
+                    </Link>
                 ))
             }
         </div>
