@@ -42,8 +42,8 @@ const CourseDetails = () => {
     useEffect(() => {
         const getCourseDetails = async() => {
             const response = await fetchCourseDetails(courseId,dispatch);
-            // console.log("getCourseDetails -> response", response);
-            setCourseDetail(response);
+            console.log("getCourseDetails -> response", response[0]);
+            setCourseDetail(response[0]);
         }
         getCourseDetails();
     }, [courseId]);

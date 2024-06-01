@@ -75,16 +75,16 @@ useEffect(() => {
         <Course_Slide Courses={CatalogPageData?.selectedCourses}/>        
       </div>
 
-      <div className=' mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent'>
+      <div className='text-richblack-100 mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent'>
         <h2 className='section_heading mb-6 md:text-3xl text-xl'>
           Similar to {Catalog.catalogName}
         </h2>
         <Course_Slide Courses={CatalogPageData?.differentCourses}/>
       </div>
       
-      <div className=' mx-auto box-content w-full max-w-maxContentTab px-2 py-12 lg:max-w-maxContent'>
+      <div className='text-richblack-100 mx-auto box-content w-full max-w-maxContentTab px-2 py-12 lg:max-w-maxContent'>
         <h2 className='section_heading mb-6 md:text-3xl text-xl'>
-          Frequently BoughtTogether
+          Frequently Bought Together
           </h2>
           <div className='grid grid-cols-2 gap-3 lg:gap-6 lg:grid-cols-2 pr-4'>
             {
