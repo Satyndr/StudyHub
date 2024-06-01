@@ -11,10 +11,7 @@ import { HiClock } from 'react-icons/hi'
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { formatDate } from '../../../../services/formatDate'
 
-import { 
-    deleteCourse,
-    fetchInstructorCourses,
-} from '../../../../services/operations/courseDetailsAPI'
+import { deleteCourse,fetchInstructorCourses} from '../../../../services/operations/courseDetailsAPI'
 import { COURSE_STATUS } from "../../../../utils/contants"
 import ConfirmationModal from "../../../common/ConfirmationModal";
 
@@ -121,7 +118,7 @@ export default function CourseTable({ courses, setCourses }) {
                                             navigate(`/dashboard/edit-course/${course._id}`)
                                         }}
                                         title='Edit'
-                                        className='px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300'
+                                        className='px-2 transition-all duration-200 text-richblack-100 hover:scale-110 hover:text-caribbeangreen-300'
                                     >
                                         <FiEdit2 size={20} />
                                     </button>
@@ -142,7 +139,7 @@ export default function CourseTable({ courses, setCourses }) {
                                             })
                                         }}
                                         title='Delete'
-                                        className='px-1 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]'
+                                        className='px-1 transition-all duration-200 text-richblack-100 hover:scale-110 hover:text-[#ff0000]'
                                     >
                                         <RiDeleteBin6Line size={20} />
                                     </button>

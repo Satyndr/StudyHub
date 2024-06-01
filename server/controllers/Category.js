@@ -35,7 +35,8 @@ exports.createCategory = async(req, res)=>{
 //get all Category
 exports.showAllCategories = async(req, res) =>{
     try{
-        const allCategories = await Category.find({}, {name:true}, {description:true});
+        const allCategories = await Category.find({});
+        // console.log("All categories...",allCategories);
         res.status(200).json({
             success:true,
             message:"All Categorys returned successfully",
@@ -61,7 +62,7 @@ exports.categoryPageDetails = async(req, res)=>{
         const selectedCategory = await Category.findById(categoryId)
           .populate("courses")
           .exec();
-        console.log(selectedCategory);
+        // console.log("selected Category....",selectedCategory);
         // Handle the case when the category is not found
         if (!selectedCategory) {
           console.log("Category not found.");
@@ -85,9 +86,12 @@ exports.categoryPageDetails = async(req, res)=>{
           _id: { $ne: categoryId },
         }).populate("courses");
         let differentCourses = [];
+        let differentCategory = [];
         for (const category of categoriesExceptSelected) {
-          differentCourses.push(...category.courses);
+          differentCategory.push(category);
+          differentCourses.push(category.courses);
         }
+        // console.log("differentCategory.....",differentCategory);
     
         // Get top-selling courses across all categories
         const allCategories = await Category.find().populate("courses");
@@ -99,6 +103,8 @@ exports.categoryPageDetails = async(req, res)=>{
         return res.status(200).json({
           success: true,
           data: {
+            selectedCategory: selectedCategory,
+            differentCategory: differentCategory,
             selectedCourses: selectedCourses,
             differentCourses: differentCourses,
             mostSellingCourses: mostSellingCourses,

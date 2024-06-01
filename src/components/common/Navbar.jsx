@@ -23,8 +23,8 @@ const Navbar = () => {
   const fetchSubLinks = async() => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      // console.log("Printing Sublinks result: ", result);
-      setSubLinks(result.data.data);
+      // console.log("Printing Sublinks result: ", result.data.allCategories);
+      setSubLinks(result.data.allCategories);
 
     } catch(error) {
       console.log("Could not fetch the categories list");
@@ -68,8 +68,8 @@ const Navbar = () => {
 
                             {
                               subLinks ? (
-                                  subLinks.map((subLink, index) => (
-                                    <Link to={`catalog/${subLink.link}`} key={index}>
+                                  subLinks.map((subLink, index) => (  
+                                    <Link to={`catalog/${subLink.name.split(" ").join("_").toLowerCase()}`} key={index}>
                                       <p className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50">
                                         {subLink.name}
                                       </p>

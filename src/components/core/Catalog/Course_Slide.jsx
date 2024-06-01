@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -13,7 +13,7 @@ import { FreeMode, Pagination } from "swiper"
 // import { getAllCourses } from "../../services/operations/courseDetailsAPI"
 import Course_Card from "./Course_Card"
 
-function Course_Slider({ Courses }) {
+function Course_Slide({ Courses }) {
   return (
     <>
       {Courses?.length ? (
@@ -42,4 +42,4 @@ function Course_Slider({ Courses }) {
   )
 }
 
-export default Course_Slider
+export default Course_Slide
