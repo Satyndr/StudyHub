@@ -17,7 +17,7 @@ const Footer = () => {
                 {/* Section 1 -> left side */}
                 <div className="lg:w-[50%] flex flex-wrap flex-row justify-between lg:border-r lg:border-richblack-700 pl-3 lg:pr-5 gap-3">
                     <div className="w-[30%] flex flex-col gap-3 lg:w-[30%] mb-7 lg:pl-0">
-                        <img src={studyNotionImage} alt="studyHubImage" className="object-contain"/>
+                        <img src={studyNotionImage} alt="studynotionImage" className="object-contain"/>
                         <h1 className="text-richblack-50 font-semibold text-[16px]">Company</h1>
                         <div className="flex flex-col gap-2">
                             {
@@ -150,7 +150,7 @@ const Footer = () => {
                     }
                 </div>
 
-                <div>Made with ❤️ Satendra © 2023 StudyHub</div>
+                <div>Made with ❤️ Satendra © 2023 StudyNotion</div>
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ exports.sendOTP = async (req, res)=>{
         }
 
         //send mail- 
-        // const mailResponse = mailSender(email, "Email Verification from StudyHub", otp);
+        // const mailResponse = mailSender(email, "Email Verification from studynotion", otp);
         // console.log("Mail sent successfully", mailResponse);
 
         //sending otp in the database-----------------------------------
@@ -274,7 +274,7 @@ exports.changePassword = async(req, res)=>{
         console.log(update);
 
         //send mail- password updated
-        const mailResponse = mailSender(email, "Password Changed from StudyHub", "Password Changed Successfully");
+        const mailResponse = mailSender(email, "Password Changed from studynotion", "Password Changed Successfully");
         console.log("Mail sent successfully", mailResponse);
 
         //return response

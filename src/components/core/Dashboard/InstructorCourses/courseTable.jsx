@@ -78,7 +78,7 @@ export default function CourseTable({ courses, setCourses }) {
                                         <p className='text-lg font-semibold text-richblack-5'>
                                             {course.courseName}
                                         </p>
-                                        <p>
+                                        <p className="text-richblack-100">
                                             {course.courseDescription.split(' ').length >
                                             TRUNCATE_LENGTH 
                                                 ? course.courseDescription

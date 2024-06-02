@@ -12,7 +12,7 @@ const mailSender = async (email, title, body)=>{
         })
 
         let info = await transpoter.sendMail({
-            from:"StudyHub || by Satendra",
+            from:"StudyNotion || by Satendra",
             to:`${email}`,
             subject:`${title}`,
             html:`${body}`,

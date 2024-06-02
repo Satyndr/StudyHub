@@ -7,9 +7,9 @@ import CourseCard from './CourseCard';
 
 const tabsName = [
     "Free",
-    "New  to coding",
-    "Most Popular",
-    "Skill Paths",
+    "New to coding",
+    "Most popular",
+    "Skills paths",
     "Career paths"
 ];
 

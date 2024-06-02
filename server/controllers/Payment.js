@@ -144,7 +144,7 @@ exports.verifySignature = async(req, res)=>{
             const emailResponse = await mailSender(
                 enrolledCourse.email,
                 "Congratulations you are enrolled in course",
-                "Congratulations bro you are now part of StudyHub . Enjoy learning with us."
+                "Congratulations bro you are now part of studynotion . Enjoy learning with us."
             );
 
             console.log(emailResponse);
