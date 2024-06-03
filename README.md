@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# StudyNotion
+StudyNotion is an ED Tech (Educational Technology) web application developed using MERN stack.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+- User Authentication: StudyNotion provides secure user registration and authentication using JWT (JSON Web Tokens). Users can sign up, log in, and manage their profiles with ease.
+- Courses by Instructor: Instructors can create and edit created courses.
+- Courses for students: Students can enroll in courses, access course materials, and track their progress.
+- Progress Tracking: Study Notion allows students to track their progress in enrolled courses. They can view completed lessons, scores on quizzes and assignments, and overall course progress.
+- Payment Integration: Study Notion integrates with Razorpay for payment processing. Users can make secure payments for course enrollment and other services using various payment methods supported by Razorpay.(Currently turned off this feature to access course freely to everyone)
+- Instructor Dashboard: Instructors have access to a comprehensive dashboard to view information about their courses, students, and income. The dashboard provides charts and visualizations to present data clearly and intuitively. Instructors can monitor the total number of students enrolled in each course, track course performance, and view their income generated from course sales.
+- Categories: Courses can fetch courses according to the category of Course.
 
-## Available Scripts
+## Tech Stack, Libraries and Frameworks
+- React
+- Tailwind
+- Javascript
+- MongoDB Atlas (Database)
+- NodeJS
+- ExpressJS
 
-In the project directory, you can run:
+## Screenshots
+![HomePage](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435985/Github%20readme%20images/StudyNotion/jxtmynog1rh7eqdarmbi.png)
+![SignUp](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435985/Github%20readme%20images/StudyNotion/bnah0wtgtg90t9rvqemo.png)
+![AboutUs](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435984/Github%20readme%20images/StudyNotion/dshfxv5buapsv8nlqjes.png)
+![catalog](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435984/Github%20readme%20images/StudyNotion/d2abmfxqylvxxdixmxpv.png)
+![instructorCourses](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435984/Github%20readme%20images/StudyNotion/degnatx3juefmn3xpybb.png)
+![courseView](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717436557/Github%20readme%20images/StudyNotion/cxbum5ur6wdlyru24cyi.png)
+![Lecture](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717435984/Github%20readme%20images/StudyNotion/nv66sykie8zpalvcgbax.png)
 
-### `npm start`
+## Useful information about project
+- Backend is in the server folder.
+- Before uploading courses and anything create the categories e.g. web dev, Python, etc. (without categories courses cannot be added). You can add categories though create category API [{YOUR_LOCAL_ADDRESS}/api/v1/course/createCategory]() using Postman or Hoppscotch.
+  ![postman screenshot](https://res.cloudinary.com/dn0zp2foz/image/upload/v1717436892/Github%20readme%20images/StudyNotion/nncx5zzi1o5c0l0mkp10.png)
+- Categories can directly be added to the database.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository to your local machine.
+   ```
+   git clone https://github.com/himanshu8443/Study-Notion-master.git
+   ```
+2. Install the required packages.
+   ```
+   cd Study-Notion-master
+   npm install
+   
+   cd server
+   npm install
+   ```
 
-### `npm test`
+3. Set up the environment variables: Create a .env file in the root directory and /server Add the required environment variables, such as database connection details, JWT secret, and any other necessary configurations check .env.example files for more info.
+     For root folder add these values in .env
+     ```
+     REACT_APP_BASE_URL = {YOUR_LOCAL_ADDRESS}/api/v1
+     ```
+     Add these values in .env inside server folder
+     ```
+     MAIL_HOST = smtp.gmail.com
+    MAIL_USER = {Your_mail}
+    MAIL_PASS = {Your_mail_password}
+    
+    JWT_SECRET = {add_secretKey_yourself}
+    FOLDER_NAME = "StudyNotion"
+    
+    RAZORPAY_KEY = {Razorpay_key}(not neccessary for this code)
+    RAZORPAY_SECRET = {Razorpay_Secret}(not neccessary for this code)
+    
+    CLOUD_NAME = {Cloudinary_id_name}
+    API_KEY = {Cloudinary_api_key}
+    API_SECRET = {Cloudinary_api_secret}
+    
+    MONGODB_URL={Mongodb_atlas_url}
+    
+    PORT = 4000
+    
+    ORIGIN = {local_address) or {live_frontend_address}
+     ```
+4. Start the development server.
+   ```
+   npm run dev
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
